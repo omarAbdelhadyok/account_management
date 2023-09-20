@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+</head>
+<body>
+
+<div layout:fragment="content"
+     class="container account-management-holder">
+    <div class="row">
+        <div class="col-12">
+            <h1>Account Management</h1>
+        </div>
+        <div class="col-12">
+            <div class="alert alert-danger"
+                 th:text="${error}">
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

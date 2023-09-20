@@ -1,0 +1,10 @@
+.statement-table-holder {
+    height: 50vh;
+    overflow: auto;
+}
+
+.back-button-holder {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}

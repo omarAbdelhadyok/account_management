@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Account Statement</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/statement.css}"/>
+</head>
+<body>
+
+<div layout:fragment="content"
+     class="container account-management-holder">
+    <div class="row">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-6">
+                    <h1>Account Statement</h1>
+                </div>
+                <div class="col-6 back-button-holder">
+                    <a class="btn btn-outline-primary"
+                       th:href="@{/}">
+                        Back
+                    </a>
+                </div>
+            </div>
+        </div>
+        <form class="col-12 row"
+              th:action="@{/statement/{id}(id=${account.accountId})}"
+              method="GET">
+
+            <div class="form-group col-6">
+                <label for="startDate">
+                    Start Date
+                </label>
+                <input type="date"
+                       class="form-control"
+                       th:value="${account.getStartDate()}"
+                       th:attr="max=${isAdmin} ? ${account.getEndDate()} : ''"
+                       name="startDate"
+                       id="startDate">
+            </div>
+
+            <div th:if="${isAdmin}"
+                 class="form-group col-6">
+                <label for="endDate">
+                    End Date
+                </label>
+                <input type="date"
+                       class="form-control"
+                       th:value="${account.getEndDate()}"
+                       name="endDate"
+                       id="endDate">
+            </div>
+
+            <div th:if="${isAdmin}"
+                 class="form-group col-6">
+                <label for="minAmount">
+                    Minimum Amount
+                </label>
+                <input type="number"
+                       class="form-control"
+                       th:value="${account.getMinAmount()}"
+                       name="minAmount"
+                       step="any"
+                       id="minAmount">
+            </div>
+
+            <div th:if="${isAdmin}"
+                 class="form-group col-6">
+                <label for="maxAmount">
+                    Maximum Amount
+                </label>
+                <input type="number"
+                       class="form-control"
+                       th:value="${account.getMaxAmount()}"
+                       name="maxAmount"
+                       step="any"
+                       id="maxAmount">
+            </div>
+
+
+            <div class="col-12">
+                <button class="btn btn-primary"
+                        type="Submit">
+                    Search
+                </button>
+            </div>
+        </form>
+
+        <div th:if="${not #strings.isEmpty(error)}"
+             class="col-12 mt-3">
+            <div class="alert alert-danger" th:text="${error}">
+            </div>
+        </div>
+
+        <div class="col-12 mt-3 statement-table-holder">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Amount</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="statement : ${account.getAccountStatements()}">
+                    <th scope="row" th:text="${statement.getId()}"></th>
+                    <td th:text="${statement.getDateField()}"></td>
+                    <td th:text="${statement.getAmount()}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

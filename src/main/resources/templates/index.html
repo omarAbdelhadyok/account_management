@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Accounts</title>
+</head>
+<body>
+
+<div layout:fragment="content"
+     class="container account-management-holder">
+    <div class="row">
+        <div class="col-12">
+            <h1>Account Management</h1>
+        </div>
+        <div class="col-12">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Account Number</th>
+                    <th scope="col">Account Type</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="account : ${accounts}">
+                    <th scope="row">
+                        <a th:text="${account.accountNumber}"
+                           th:href="@{/statement/{id}(id=${account.accountId})}">
+                        </a>
+                    </th>
+                    <td>
+                        <span th:text="${account.accountType}"></span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
